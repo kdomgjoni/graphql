@@ -1,5 +1,12 @@
 const graphql = require('graphql');
+const _ = require('lodash');
 
+// dummy data
+var books = [
+    { name: 'Fluent Forever', genre: 'Self-help book', id: '1'},
+    { name: 'Why we sleep', genre: 'Science book', id: '2'},
+    { name: 'Name of the Wind', genre: 'Biography', id: '3'}
+];
 
 const { 
     GraphQLObjectType,
