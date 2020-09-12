@@ -5,7 +5,7 @@ const _ = require('lodash');
 var books = [
     { name: 'Fluent Forever', genre: 'Self-help book', id: '1'},
     { name: 'Why we sleep', genre: 'Science book', id: '2'},
-    { name: 'Name of the Wind', genre: 'Biography', id: '3'}
+    { name: 'Elon Musk', genre: 'Biography', id: '3'}
 ];
 
 const { 
@@ -31,6 +31,7 @@ const RootQuery = new GraphQLObjectType({
             args: { id: { type: GraphQLString}},
             resolve(parent, args){
                 // code to get data from db/other soure
+                return _.find(books, { id: args.id });
             }
         }
     }
