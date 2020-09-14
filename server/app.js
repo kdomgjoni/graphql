@@ -8,14 +8,8 @@ const app = express();
 
 // connect to mlab database
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://krist:AoVjYlKMafRP8LjB@cluster0.bnfo8.gcp.mongodb.net/graphql?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
+mongoose.connect("mongodb+srv://krist:test123@cluster0.bnfo8.gcp.mongodb.net/graphql?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
+
 
 
 app.use('/graphql', graphqlHTTP({
