@@ -18,7 +18,6 @@ export class BookListComponent implements OnInit {
   @ViewChild('book-list', { static: true }) bookList: ElementRef;
 
   books;
-  empty;
 
   constructor(private apollo: Apollo) {
     this.apollo
@@ -33,7 +32,6 @@ export class BookListComponent implements OnInit {
       })
       .valueChanges.subscribe(result => {
         this.books = result.data.books;
-        console.log(this.books);
       });
    }
 
