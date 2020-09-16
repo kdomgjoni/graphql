@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
@@ -14,27 +14,47 @@ import { Observable } from 'rxjs';
 
 
 export class BookListComponent implements OnInit {
-  bookk: Observable<any>;
 
-  constructor(private apollo: Apollo) { }
+  @ViewChild('book-list', { static: true }) bookList: ElementRef;
 
+  books;
+  empty;
 
-  ngOnInit() {
+  constructor(private apollo: Apollo) {
     this.apollo
       .watchQuery({
         query: gql`
         {
-          authors{
-            age
+          books{
             name
           }
         }
-        `,
+        `
       })
       .valueChanges.subscribe(result => {
-        console.log(result.data);
+        this.books = result.data.books;
+        console.log(this.books);
       });
+   }
+
+
+  ngOnInit() {
+
   }
+
+  // displayBooks() {
+  //   const data = this.books.data;
+
+  //   if (data.loading) {
+  //     return this.empty;
+  //   } else {
+  //     return data.books.map(book => {
+  //       return (
+  //         `<li>${book.name}</li>`
+  //       );
+  //     });
+  //   }
+  // }
 
 
 

@@ -1,5 +1,5 @@
 <div>
-  <ul id="book-list">
-    <li>Book name</li>
+  <ul id="book-list" *ngFor="let book of books">
+    <li>{{book.name}}</li>
   </ul>
 </div>
