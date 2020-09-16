@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddBookComponent } from './add-book/add-book.component';
 
 
+import { FormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +21,8 @@ import { AddBookComponent } from './add-book/add-book.component';
   imports: [
     BrowserModule,
     GraphQLModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,17 +1,17 @@
-<form id="add-book">
+<form #f="ngForm" id="add-book" (ngSubmit)="submit(f, $event)">
   <div class="field">
-    <label for="">Book name:</label>
-    <input type="text">
+    <label>Book name:</label>
+    <input type="text" name="name" [(ngModel)]="name">
   </div>
 
   <div class="field">
     <label for="">Genre:</label>
-    <input type="text">
+    <input type="text" name="genre" [(ngModel)]="genre">
   </div>
 
   <div class="field">
     <label for="">Author:</label>
-    <select>
+    <select name="authorId" [(ngModel)]="authorId" (change)="changeAuthor($event)">
       <option *ngFor="let author of authors" [value]="author.id">
         {{author.name}}
       </option>
