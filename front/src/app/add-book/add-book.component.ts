@@ -42,8 +42,27 @@ export class AddBookComponent implements OnInit {
   }
 
   submit(f: NgForm, e){
-    console.log(e.preventDefault);
-    console.log(f)
+    e.preventDefault();
+    console.log(f);
+
+    this.apollo.mutate({
+      mutation: gql`
+        mutation($name: String!, $genre: String!, $authorId: ID!){
+          addBook(name: $name, genre: $genre, authorId: $authorId){
+            name
+            id
+          }
+        }
+      `,
+      variables: {
+        name: f.form.value.name,
+        genre: f.form.value.genre,
+        authorId: f.form.value.authorId
+      }
+    })
+    .subscribe(data => console.log(data));
   }
+
+
 
 }
