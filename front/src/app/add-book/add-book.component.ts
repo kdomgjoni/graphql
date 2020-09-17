@@ -58,7 +58,14 @@ export class AddBookComponent implements OnInit {
         name: f.form.value.name,
         genre: f.form.value.genre,
         authorId: f.form.value.authorId
+      },
+      refetchQueries: [{ query: gql`
+      {
+        books{
+          name
+        }
       }
+      ` }]
     })
     .subscribe(data => console.log(data));
   }
