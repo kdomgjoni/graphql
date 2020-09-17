@@ -18,6 +18,9 @@ export class BookListComponent implements OnInit {
   @ViewChild('book-list', { static: true }) bookList: ElementRef;
 
   books;
+  bookDetailsId;
+  queryBooks;
+
 
   constructor(private apollo: Apollo) {
     this.apollo
@@ -26,6 +29,7 @@ export class BookListComponent implements OnInit {
         {
           books{
             name
+            id
           }
         }
         `
@@ -40,19 +44,38 @@ export class BookListComponent implements OnInit {
 
   }
 
-  // displayBooks() {
-  //   const data = this.books.data;
 
-  //   if (data.loading) {
-  //     return this.empty;
-  //   } else {
-  //     return data.books.map(book => {
-  //       return (
-  //         `<li>${book.name}</li>`
-  //       );
-  //     });
-  //   }
-  // }
+  bookDetails(id){
+    this.bookDetailsId = id;
+    this.apollo
+      .watchQuery({
+        query: gql`
+        query($id: ID){
+          book(id: $id){
+            id
+            name
+            genre
+            author{
+              id
+              name
+              age
+              books{
+                name
+                id
+              }
+            }
+          }
+        }
+        `,
+        variables: {
+          id: this.bookDetailsId
+        }
+      })
+      .valueChanges.subscribe(result => {
+        this.queryBooks = result.data.book.author.books;
+        console.log(result.data)
+      });
+  }
 
 
 

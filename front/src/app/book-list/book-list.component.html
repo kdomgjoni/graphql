@@ -1,5 +1,6 @@
 <div>
   <ul id="book-list" *ngFor="let book of books">
-    <li>{{book.name}}</li>
+    <li (click)="bookDetails(book.id)">{{book.name}}</li>
   </ul>
+  <app-book-details [bookDetailsQuery]="queryBooks"></app-book-details>
 </div>

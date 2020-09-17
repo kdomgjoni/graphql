@@ -10,13 +10,15 @@ import { AddBookComponent } from './add-book/add-book.component';
 
 
 import { FormsModule } from '@angular/forms';
+import { BookDetailsComponent } from './book-details/book-details.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     BookListComponent,
-    AddBookComponent
+    AddBookComponent,
+    BookDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -30,7 +30,6 @@ export class AddBookComponent implements OnInit {
       })
       .valueChanges.subscribe(result => {
         this.authors = result.data.authors;
-        console.log(this.authors);
       });
    }
 
