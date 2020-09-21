@@ -14,9 +14,11 @@ app.use(cors());
 
 // connect to mlab database
 
-mongoose.connect("mongodb+srv://krist:test123@cluster0.bnfo8.gcp.mongodb.net/graphql?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://kristi:test123@cluster0.v6skk.mongodb.net/<graphql-test>?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 
+// mongodb+srv://kristi:<password>@cluster0.v6skk.mongodb.net/<dbname>?retryWrites=true&w=majority
 
+//mongodb+srv://krist:test123@cluster0.bnfo8.gcp.mongodb.net/graphql?retryWrites=true&w=majority
 
 app.use('/graphql', graphqlHTTP({
     schema,

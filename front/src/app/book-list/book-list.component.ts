@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { BooksService } from '../service/books.service';
 
 
 @Component({
@@ -22,17 +23,10 @@ export class BookListComponent implements OnInit {
   queryBooks;
 
 
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo, private bookService: BooksService) {
     this.apollo
       .watchQuery({
-        query: gql`
-        {
-          books{
-            name
-            id
-          }
-        }
-        `
+        query: this.bookService.getBook
       })
       .valueChanges.subscribe(result => {
         this.books = result.data.books;
@@ -49,24 +43,7 @@ export class BookListComponent implements OnInit {
     this.bookDetailsId = id;
     this.apollo
       .watchQuery({
-        query: gql`
-        query($id: ID){
-          book(id: $id){
-            id
-            name
-            genre
-            author{
-              id
-              name
-              age
-              books{
-                name
-                id
-              }
-            }
-          }
-        }
-        `,
+        query: this.bookService.showBook(id),
         variables: {
           id: this.bookDetailsId
         }

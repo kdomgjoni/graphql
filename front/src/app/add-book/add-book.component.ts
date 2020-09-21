@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import {NgForm} from '@angular/forms';
+import { BooksService } from '../service/books.service';
 
 
 @Component({
@@ -16,17 +17,10 @@ export class AddBookComponent implements OnInit {
   genre = '';
   authorId;
 
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo, private bookService: BooksService) {
     this.apollo
       .watchQuery({
-        query: gql`
-        {
-          authors{
-            name
-            id
-          }
-        }
-        `
+        query: this.bookService.getAuthors
       })
       .valueChanges.subscribe(result => {
         this.authors = result.data.authors;
@@ -45,26 +39,13 @@ export class AddBookComponent implements OnInit {
     console.log(f);
 
     this.apollo.mutate({
-      mutation: gql`
-        mutation($name: String!, $genre: String!, $authorId: ID!){
-          addBook(name: $name, genre: $genre, authorId: $authorId){
-            name
-            id
-          }
-        }
-      `,
+      mutation: this.bookService.addBook,
       variables: {
         name: f.form.value.name,
         genre: f.form.value.genre,
         authorId: f.form.value.authorId
       },
-      refetchQueries: [{ query: gql`
-      {
-        books{
-          name
-        }
-      }
-      ` }]
+      refetchQueries: [{ query: this.bookService.getBooks }]
     })
     .subscribe(data => console.log(data));
   }
